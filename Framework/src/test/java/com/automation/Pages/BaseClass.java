@@ -40,10 +40,12 @@ public class BaseClass {
 		Reporter.log("Setting done - test can be started ", true);
 
 	}
-	@BeforeClass
-	public void setup() {
+	@Parameters({"browser","app_url"})
+	@BeforeClass()
+	public void setup(String browser,String app_url) {
 		Reporter.log("Trying to start the browser and getting application ready ", true);
-		driver = BrowserFactory.startApplication(driver, config.getBrowser(), config.getQaUrl());
+		//driver = BrowserFactory.startApplication(driver, config.getBrowser(), config.getQaUrl());
+		 driver = BrowserFactory.startApplication(driver,browser,app_url);
 		Reporter.log("Browser and application is Up and running ", true);
 	}
 
@@ -66,7 +68,7 @@ public class BaseClass {
 					MediaEntityBuilder.createScreenCaptureFromPath(Helper.captureScreenShot(driver)).build());
 		}
 		reports.flush();
-		
+
 		Reporter.log("Test completed >> reports generated ", true);
 	}
 
